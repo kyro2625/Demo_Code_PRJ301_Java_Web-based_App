@@ -1,6 +1,8 @@
 DAO\ProductDAO.class
-Demo\DemoProductTableConnection.class
-Servlets\InsertServlet.class
 DTO\Product.class
 Servlets\ProductManagementServlet.class
 UTILS\DBConnect.class
+Servlets\DeleteServlet.class
+Servlets\UpdateServlet.class
+Demo\DemoProductTableConnection.class
+Servlets\InsertServlet.class
