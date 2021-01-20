@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"com.slot4demo","l":"DemoRequestHeader"},{"p":"Exercise","l":"DemoSignUpForm"},{"p":"fu.demo.example","l":"DemoSimpleForm"},{"p":"fu.demo.example","l":"DemoSimpleFormPOST"}];updateSearchResults();

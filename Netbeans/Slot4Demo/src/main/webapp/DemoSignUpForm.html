@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="SignUpForm.css">
+    <title>Sign Up</title>
+</head>
+<body>
+    <h1>Sign Up</h1>
+    <section class="signUp">
+        <form action="DemoSignUpForm" method = "POST" name="f2post">
+            <table id="info">
+                <tr><td colspan="10"><h2>Your basic info</h2></td></tr>
+                <tr><td>Name:</td> <td><input type="text" name="name"  value=""/></td></tr>
+                <tr><td>Email:</td> <td><input type="text" name="email" value=""/></td></tr>
+                <tr><td>Password:</td> <td><input type="password" name="password" value=""></td></tr>
+                <tr><td>Age:
+                   <td> <input class="age" type="radio" name="age" value="Under 13" > Under 13 <br/>
+                    <input class="age" type="radio" name="age" value="13 or older" > 13 or older</td>
+                </td></tr>
+            </table>
+            <!-- <h4>Age</h4>
+            <input class="age" type="radio" name="age" value="Under 13" > Under 13
+            <br/>
+            <input class="age" type="radio" name="age" value="13 or older" > 13 or older
+            <br/> -->
+            <h2>Your Profile</h2>
+            <h3>Biolograply:</h3>
+            <textarea  name="biolography" rows="5" cols="30"></textarea>
+            <br/>
+            <table id="job">
+                <tr><td><h3>Job Role:</h3>
+                   <td> 
+                        <select name="job" id="abc">
+                            <option value="student"> Student</option>
+                            <option value="employee">Employee</option>
+                        </select>
+                    </td>
+                </td></tr>
+            </table>
+            
+            <table id="interest">
+                <tr><td><h3>Interest:</h3>
+                    <td>
+                        <input class="interest" type="checkbox" name="interest" value="App" /> App
+                        <br/>
+                        <input class="interest" type="checkbox" name="interest" value="Web" /> Web
+                        <br/>
+                        <input class="interest" type="checkbox" name="interest" value="Mobile" /> Mobile
+                        <br/>
+                    </td>
+                </td></tr>
+            </table>           
+            <hr/>
+            <input type="submit" value="Submit" />
+
+        </form>
+
+    </section>
+</body>
+</html>

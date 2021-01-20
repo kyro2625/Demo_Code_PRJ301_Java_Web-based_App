@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Slot4Demo:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>Slot4Demo</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="Slot4Demo-1.0.war">
+      <element id="artifact" artifact-name="Slot4Demo:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Product Management</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+        <h1>List of Products</h1>
+        <form action="InsertServlet" method="POST" name="fl">
+            <table style="width:100%">
+                <tr>
+                    <td>Product ID:</td>
+                    <td><input type="text" name="ProductID"></td>
+                </tr>
+                <tr>
+                    <td>Name:</td>
+                    <td><input type="text" name="Name"></td>
+                </tr>
+                <tr>
+                    <td>Description:</td>
+                    <td><textarea name="Description" rows="5" cols="50"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Quantity:</td>
+                    <td><input type="number" name="Quantity"></td>
+                </tr>
+                <tr>
+                    <td>Price:</td>
+                    <td><input type="number" name="Price"></td>
+                </tr>
+                <tr>
+                    <td>Image URL:</td>
+                    <td><input type="text" name="url"></td>
+                </tr>
+                <tr>
+                    <td><button>create</button></td>
+                    <td><button>reset</button></td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>
