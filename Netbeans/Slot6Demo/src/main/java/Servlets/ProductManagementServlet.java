@@ -55,7 +55,7 @@ public class ProductManagementServlet extends HttpServlet {
             out.println("<h1> Product Managements </h1>");
             out.println("<a href='productform.html'> Create New Product</a>");
             out.println("<table border='1'>");
-            out.println("<tr><td>Product ID</td> <td> Product Name</td> <td>Description</td>  <td>Price</td> <td>Quantity</td></tr>");
+            out.println("<tr><td>Product ID</td> <td> Product Name</td> <td>Description</td>  <td>Price</td> <td>Quantity</td> <td>Image URL</td></tr>");
 
             for (Product p : dataFromDatabase) {
                 out.println("<tr>");
@@ -64,8 +64,10 @@ public class ProductManagementServlet extends HttpServlet {
                 out.println("<td>" + p.getDescription() + "</td>");
                 out.println("<td>" + p.getPrice() + "</td>");
                 out.println("<td>" + p.getQuantity() + "</td>");
-                out.println("<td> <a href='UpdateServlet?pid=" +p.getId() +" '>Edit</a>"
-                        + " |<a href='DeleteServlet?pid=" +p.getId() +" '>Delete</a> </td>");
+                out.println("<td>" + p.getImgURL()+ "</td>");
+
+                out.println("<td> <a href='UpdateServlet?pid=" + p.getId() + " '>Edit</a>"
+                        + " |<a href='DeleteServlet?pid=" + p.getId() + " '>Delete</a> </td>");
                 out.println("</tr>");
             }
 
