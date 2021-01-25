@@ -5,6 +5,7 @@
  */
 package Servlets;
 
+import DAO.ProductDAO;
 import DTO.Product;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -33,71 +34,21 @@ import javax.servlet.http.Part;
 
 public class UploadServlet extends HttpServlet {
 
-    private static final String UPLOAD_DIR = "images";
+    private static final String UPLOAD_DIR = "D:\\Study At FPTU\\4. Spring 2021\\PRJ301 - Web-based Java Applications - VanVTT\\Demo_PRJ301_Java_Web-based_App\\Netbeans\\Slot9Demo-ReferenceSlot6\\src\\main\\webapp\\images";
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet UploadServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet UploadServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     * 
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("id");
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
-        String quantity = request.getParameter("quantity");
-        String price = request.getParameter("price");
+        String id = request.getParameter("ProductID");
+        String name = request.getParameter("Name");
+        String desc = request.getParameter("Description");
+        String quantity = request.getParameter("Quantity");
+        String price = request.getParameter("Price");
         String url = uploadFile(request); // Upload file vào thư mục, return image name 
 
-        //ProductDAO dao = new ProductDAO(); // 
+        // ProductDAO dao = new ProductDAO(); 
         // Các thao tác với CSDL 
-        Product p = new Product(id, name, description, Integer.parseInt(quantity),
+        Product p = new Product(id, name, desc, Integer.parseInt(quantity),
                 Double.parseDouble(price), url);
         request.setAttribute("product", p);
 
