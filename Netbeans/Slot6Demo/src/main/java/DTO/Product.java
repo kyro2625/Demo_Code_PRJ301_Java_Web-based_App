@@ -19,7 +19,7 @@ public class Product {
     private String imgURL;
 
     public Product() {
-
+        
     }
 
     public Product(String id, String name, String description, int quantity, double price, String imgURL) {
