@@ -38,43 +38,40 @@ public class ProductManagementServlet extends HttpServlet {
 
         try {
             if (action == null) { // Liệt kê danh sách sản phẩm 
-                ArrayList<Product> listProducts = new ArrayList<>();
+                ArrayList<Product> listProducts = new ArrayList();
+
                 ProductDAO dao = new ProductDAO();
                 listProducts = dao.getAllProducts();
+
                 request.setAttribute("data", listProducts);
+
                 RequestDispatcher rd = request.getRequestDispatcher(displayView);
                 rd.forward(request, response);
 
             } else if (action.equals("addform")) { // Hiển thị form để tạo mới sản phẩm
-                Product p = new Product();
-
+                Product p = new Product();//Tạo đ/t product chưa có thong tin
                 request.setAttribute("pObject", p);
                 request.setAttribute("msg", "Add new product");
                 request.setAttribute("action", "Create");
-
-                RequestDispatcher rd = request.getRequestDispatcher(displayView);
-                rd.forward(request, response);
-            } else if (action.equals("updateform")) {
-                String id = request.getParameter("pid");
-                ProductDAO dao = new ProductDAO();
-                Product p = dao.getProductById(id);
-                request.setAttribute("pObject", p);
-                request.setAttribute("msg", "Update product (ID: " + id + " )");
-                request.setAttribute("action", "Update");
-
                 RequestDispatcher rd = request.getRequestDispatcher(formView);
                 rd.forward(request, response);
 
+            } else if (action.equals("updateform")) {
+                String id = request.getParameter("pid");
+
+                ProductDAO dao = new ProductDAO();
+                Product p = dao.getProductById(id);
+                request.setAttribute("pObject", p);
+                request.setAttribute("msg", "Update product (Id: " + id + ")");
+                request.setAttribute("action", "Update");
+                RequestDispatcher rd = request.getRequestDispatcher(formView);
+                rd.forward(request, response);
             } else if (action.equals("delete")) {
                 String id = request.getParameter("pid");
-                ProductDAO dao = new ProductDAO();
-                if (dao.deleteProduct(id)) {
-                    response.sendRedirect(controllerServlet);
-                } else {
-                    response.sendRedirect("errorpage.js[");
-                }
-//                dao.deleteProduct(id);
 
+                ProductDAO dao = new ProductDAO();
+                dao.deleteProduct(id);
+                response.sendRedirect(controllerServlet);
             } else if (action.equals("Update")) {
                 String id = request.getParameter("id");
                 String name = request.getParameter("name");
@@ -84,11 +81,13 @@ public class ProductManagementServlet extends HttpServlet {
                 String url = request.getParameter("url");
 
                 ProductDAO dao = new ProductDAO();
+
                 Product p = new Product(id, name, description, Integer.parseInt(quantity),
                         Double.parseDouble(price), url);
-                dao.updateProduct(p);
-                response.sendRedirect(controllerServlet);
 
+                dao.updateProduct(p);
+
+                response.sendRedirect(controllerServlet);
             } else if (action.equals("Create")) {
                 String id = request.getParameter("id");
                 String name = request.getParameter("name");
@@ -106,7 +105,9 @@ public class ProductManagementServlet extends HttpServlet {
 
                 response.sendRedirect(controllerServlet);
             }
-        } catch (NamingException | SQLException e) {
+        } catch (NamingException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 

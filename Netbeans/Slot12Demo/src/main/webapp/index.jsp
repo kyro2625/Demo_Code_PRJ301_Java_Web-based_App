@@ -1,6 +1,7 @@
 
+<%@page import="entities.Product"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="entities.Product" %>
+<%-- import here --%>
 <%@page import="java.util.ArrayList"%> 
 
 <!DOCTYPE html>
@@ -16,23 +17,27 @@
             <tr>
                 <th>Product ID </th> <th>Name </th>  <th>Description </th><th>Quantity </th> <th>Price </th>
                 <th>Image URL </th>
-                <th> </th> <th> </th>
+                <th> </th> <th> </th>       
             </tr>
             <%
-                ArrayList<Product> ldt = new ArrayList<>();
+                ArrayList<Product> ldt = new ArrayList<Product>();//Khời tạo
+
                 ldt = (ArrayList<Product>) request.getAttribute("data");
                 for (Product dt : ldt) {%>
-                    <tr>
-                        <td><%=dt.getId()%></td>
-                        <td><%=dt.getName()%></td>
-                        <td><%=dt.getDescription()%></td>
-                        <td><%=dt.getQuantity()%></td>
-                        <td><%=dt.getPrice()%></td>
-                        <td><%=dt.getImgURL()%></td>
-                        <td><a href="ProductManagementServlet?action=updateform&pid<%=dt.getId()%>">Edit</td>
-                        <td><a href="ProductManagementServlet?action=delete&pid<%=dt.getId()%>">Delete</td>
-                    </tr>
-                <% } %> 
+            <tr>
+                <td><%=dt.getId()%></td>
+                <td><%=dt.getName()%></td>
+                <td><%=dt.getDescription()%></td>
+                <td><%=dt.getQuantity()%></td>
+                <td><%=dt.getPrice()%></td>
+                <td><%=dt.getImgURL()%></td>
+                <td><a href="ProductManagementServlet?action=updateform&pid=<%=dt.getId()%>">Edit</a></td>
+                <td><a href="ProductManagementServlet?action=delete&pid=<%=dt.getId()%>">Delete</a></td>
+
+            </tr>
+
+            
+            <%}%> 
         </table>
     </body>
 </html>
