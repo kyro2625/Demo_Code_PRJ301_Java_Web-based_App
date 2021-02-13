@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%> 
 
 <%@page import="entities.Product"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -15,11 +16,11 @@
            String action =  (String) request.getAttribute("action");
         %>
         
-        <h2> </h2>
+        <h2> <%=headerMsg%> </h2>
 
         <table width="600px" border="0px solid">
             <form action="ProductManagementServlet" method="POST" name="f1">
-                <input type="hidden" name ="action" value="<%=action%>">
+                <input type="text" name ="action" value="<%=action%>">
                 <tr> 
                     <td>Product ID </td> 
                     <td>: <input type="text" name="id" value="<%=p.getId()%>"/></td> 
