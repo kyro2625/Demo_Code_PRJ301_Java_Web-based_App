@@ -57,7 +57,7 @@
                                 <span class="fa fa-address-book"></span>
                             </span>                    
                         </div>
-                        <input type="text" class="form-control" name="firstName" placeholder="First Name">
+                        <input type="text" class="form-control" name="names" placeholder="Name">
                     </div>
                 </div>
                 <div class="form-group">
@@ -67,7 +67,7 @@
                                 <span class="fa fa-address-book"></span>
                             </span>                    
                         </div>
-                        <input type="text" class="form-control" name="lastName" placeholder="Last Name">
+                        <input type="text" class="form-control" name="email" placeholder="Email">
                     </div>
                 </div>
 
@@ -75,6 +75,7 @@
                     <button type="submit" class="btn btn-primary btn-lg">Sign Up</button>
                 </div>
             </form>
+
             <div class="text-center">Already have an account? <a href="BookandUserManagementServlet?action=rollback">Login here</a></div>
         </div>
 

@@ -83,9 +83,10 @@ public class BookandUserManagementServlet extends HttpServlet {
                 }
                 if (user1.getAccountName().equals(user.getAccountName()) && user1.getPassword().equalsIgnoreCase(user.getPassword())) {
                     ArrayList<Books> listBooks = new ArrayList();
-
                     BookDAO book = new BookDAO();
                     listBooks = book.getAllBooks();
+                    String names = user.getName();
+                    request.setAttribute("names", names);
 
                     request.setAttribute("data", listBooks);
                     request.setAttribute("hello", welcome);
@@ -102,19 +103,19 @@ public class BookandUserManagementServlet extends HttpServlet {
                 rd.forward(request, response);
 
             } else if (action.endsWith("addUser")) {
-                String firstName = request.getParameter("firstName");
-                String lastName = request.getParameter("lastName");
+                String name = request.getParameter("names");
+                String email = request.getParameter("email");
 
                 String accountName = request.getParameter("accountName");
                 String password = request.getParameter("password");
                 UserDAO dao = new UserDAO();
-                User u = new User(accountName, password, firstName, lastName);
+                User u = new User(accountName, password, name, email);
                 dao.addUser(u);
                 response.sendRedirect("Login.html");
-                
+
             } else if (action.equals("rollback")) {
                 response.sendRedirect("Login.html");
-                
+
             } else if (action.equals("addform")) { // Hiển thị form để tạo mới sản phẩm
                 Books p = new Books();//Tạo đ/t product chưa có thong tin
                 request.setAttribute("pObject", p);

@@ -13,8 +13,8 @@ public class User {
 
     private String accountName;
     private String password;
-    private String firstName;
-    private String lastName;
+    private String name;
+    private String email;
 
     public User() {
     }
@@ -24,11 +24,11 @@ public class User {
         this.password = password;
     }
 
-    public User(String accountName, String password, String firstName, String lastName) {
+    public User(String accountName, String password, String name, String email) {
         this.accountName = accountName;
         this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
+        this.email = email;
     }
 
     public String getAccountName() {
@@ -47,23 +47,20 @@ public class User {
         this.password = password;
     }
 
-    
-   
-
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getEmail() {
+        return email;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }

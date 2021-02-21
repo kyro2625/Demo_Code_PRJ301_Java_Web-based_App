@@ -22,7 +22,7 @@ public class UserDAO {
     public boolean addUser(User u) throws NamingException, SQLException {
         Connection con = null;
         PreparedStatement pstm = null;
-        String sql = "INSERT INTO Users(Username,Password,FirstName,LastName)"
+        String sql = "INSERT INTO Users(Username,Password,Names,Email)"
                 + "VALUES (?, ?, ?, ?)";
 
         try {
@@ -31,12 +31,12 @@ public class UserDAO {
                 pstm = con.prepareStatement(sql);
                 pstm.setString(1, u.getAccountName());
                 pstm.setString(2, u.getPassword());
-                pstm.setString(3, u.getFirstName());
-                pstm.setString(4, u.getLastName());
+                pstm.setString(3, u.getName());
+                pstm.setString(4, u.getEmail());
                 pstm.executeUpdate();
                 return true;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         } finally {
@@ -54,7 +54,7 @@ public class UserDAO {
         Connection con = null;
         PreparedStatement pstm = null;
         ResultSet rs = null;
-        String sql = "SELECT Username,Password FROM Users WHERE Password=?";
+        String sql = "SELECT Username,Password,Names,Email FROM Users WHERE Password=?";
         try {
             con = DBConnect.makeConnection();
             if (con != null) {
@@ -65,8 +65,10 @@ public class UserDAO {
                 if (rs.next()) {
                     String accountName = rs.getString("Username");
                     String password = rs.getString("Password");
+                    String name = rs.getString("Names");
+                    String email = rs.getString("Email");
 
-                    User u = new User(accountName, password);
+                    User u = new User(accountName, password, name, email);
                     return u;
                 }
             }
