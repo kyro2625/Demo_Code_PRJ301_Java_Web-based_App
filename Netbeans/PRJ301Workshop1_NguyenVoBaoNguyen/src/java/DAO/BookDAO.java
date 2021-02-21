@@ -20,8 +20,9 @@ import javax.naming.NamingException;
  * @author Baby Bear
  */
 public class BookDAO {
-    public boolean addCate(Categories cd) throws NamingException, SQLException{
-         Connection con = null;
+
+    public boolean addCate(Categories cd) throws NamingException, SQLException {
+        Connection con = null;
         PreparedStatement pstm = null;
         String sql = "INSERT INTO Categories(CategoryID,CategoryName,CategoryDescription) "
                 + "VALUES (?, ?, ?)";
@@ -33,11 +34,11 @@ public class BookDAO {
                 pstm.setString(1, cd.getCateID());
                 pstm.setString(2, cd.getCateName());
                 pstm.setString(3, cd.getDescription());
-               
+
                 pstm.executeUpdate();
                 return true;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         } finally {
@@ -50,7 +51,8 @@ public class BookDAO {
         }
         return false;
     }
-     public ArrayList<Categories> getAllCate() throws NamingException, SQLException {
+
+    public ArrayList<Categories> getAllCate() throws NamingException, SQLException {
         Connection con = null;
         PreparedStatement pstm = null;
         ResultSet rs = null;
@@ -68,7 +70,7 @@ public class BookDAO {
                     String id = rs.getString("CategoryID");
                     String name = rs.getString("CategoryName");
                     String Des = rs.getString("CategoryDescription");
-                   
+
                     Categories c = new Categories(id, name, Des); //DTO
 
                     lst.add(c);
@@ -184,7 +186,7 @@ public class BookDAO {
                 pstm.executeUpdate();
                 return true;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         } finally {
@@ -218,7 +220,7 @@ public class BookDAO {
                 pstm.executeUpdate();
                 return true;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         } finally {
@@ -253,7 +255,7 @@ public class BookDAO {
                 pstm.executeUpdate();
                 return true;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         } finally {
