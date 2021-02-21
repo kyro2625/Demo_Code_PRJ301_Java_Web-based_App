@@ -15,29 +15,65 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+        <style>
+            .form-control-borderless {
+                border: none;
+            }
+
+            .form-control-borderless:hover, .form-control-borderless:active, .form-control-borderless:focus {
+                border: none;
+                outline: none;
+                box-shadow: none;
+            }
+        </style>
     </head>
     <body>
         <%
             ArrayList<Books> ldt = new ArrayList<Books>();//Khời tạo
             String n = (String) request.getAttribute("names");
             ldt = (ArrayList<Books>) request.getAttribute("data");%>
-        <h2>Welcome to <%=n%>'s page</h2>
-        <table width="900px"  class="table table-bordered table-hover">
+            <h1 style="text-align: center; font-size: 550%; color: rosybrown">Welcome to my Book Management page</h1>
+            <div class="container" >
+            <br/>
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-10 col-lg-8">
+                    <form class="card card-sm" action="BookandUserManagementServlet?action=search" method="POST" name="s">
+                        <div class="card-body row no-gutters align-items-center">
+                            <div class="col-auto">
+                                <i class="fas fa-search h4 text-body"></i>
+                            </div>
+                            <!--end of col-->
+                            <div class="col">
+                                <input class="form-control form-control-lg form-control-borderless" type="number" placeholder="Find a book using Book ID" name="bid">
+                            </div>
+                            <!--end of col-->
+                            <div class="col-auto">
+                                <button class="btn btn-lg btn-success" type="submit">Search</button>
+                            </div>
+                            <!--end of col-->
+                        </div>
+                    </form>
+                </div>
+                <!--end of col-->
+            </div>
+        </div>
+        <table width="900px"  class="table table-striped table-bordered table-hover">
             <thead class="thead-dark">
                 <tr>
-                    <th>Category Name</th><th>Book ID </th> <th>Name </th> <th>Author</th> <th>Publish Year</th> <th>Short Description</th> <th>Status</th> 
+                    <th>Book ID </th> <th>Name </th> <th>Author</th> <th>Publish Year</th> <th>Short Description</th> <th>Status</th> <th>Category Name</th>
                     <th> </th> <th> </th>
                 </tr>
             </thead>
             <%for (Books dt : ldt) {%>
             <tr>
-                <td><%=dt.getCateID()%></td>
                 <td><%=dt.getBookID()%></td>
                 <td><%=dt.getBookName()%></td>
                 <td><%=dt.getAuthor()%></td>
                 <td><%=dt.getPublishYear()%></td>
                 <td><%=dt.getShortDescription()%></td>
                 <td><%=dt.getStatus()%></td>
+                <td><%=dt.getCateID()%></td>
 
 
                 <td><a href="BookandUserManagementServlet?action=updateform&pid=<%=dt.getBookID()%>" class="btn btn-primary">Edit</a></td>
@@ -49,9 +85,9 @@
             <%}%> 
         </table>
         <div class="btn-group-vertical">
-            <a href="BookandUserManagementServlet?action=addform" class="btn btn-primary""> Add new book </a> 
-            <a href="BookandUserManagementServlet?action=addCate" class="btn btn-primary"> Add new Category </a> 
-            <a href="BookandUserManagementServlet?action=find" class="btn btn-info"> Find a book by ID </a> 
+            <a href="BookandUserManagementServlet?action=addform" class="btn btn-primary""> Add new book </a> <br>
+            <a href="BookandUserManagementServlet?action=addCate" class="btn btn-primary"> Add new Category </a> <br> <br>
+            <!--<a href="BookandUserManagementServlet?action=find" class="btn btn-info"> Find a book by ID </a>--> 
 
         </div>
 

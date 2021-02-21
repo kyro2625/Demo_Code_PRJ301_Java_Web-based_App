@@ -6,7 +6,19 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Create Page</title>
+        <title>Add new Book Page</title>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <style>
+            label {
+                font-weight: bold;
+                color: crimson;
+            }
+        </style>
     </head>
     <body>
         <%
@@ -21,50 +33,50 @@
             <form action="BookandUserManagementServlet?action=<%=action%>" method="POST" name="f1">
                 <input type="hidden" name ="action" value="">
                 <tr> 
-                    <td>Book ID:</td> 
-                    <td><input type="text" name="id" value=""/></td> 
+                    <td><label>Book ID:</label></td>
+                    <td><input type="text" name="id" value="" class="w3-input" required/></td>
                 </tr>
                 <tr> 
-                    <td>Name:</td> 
-                    <td><input type="text" name="name" value="" /></td> 
+                    <td><label>Name:</label></td>
+                    <td><input type="text" name="name" value="" class="w3-input" required/></td>
                 </tr>
                 <tr>
-                    <td>Author:</td>
-                    <td><input type="text" name="author" value=""></td>
+                    <td><label>Author:</label></td>
+                    <td><input type="text" name="author" value="" class="w3-input"></td>
                 </tr>
                 <tr>
-                    <td>Publish Year:</td>
-                    <td><input type="text" name="PY" value=""</td>
+                    <td> <label>Publish Year:</label></td>
+                    <td><input type="text" name="PY" value="" class="w3-input"/></td>
                 </tr>
-                <tr> 
-                    <td>Description:</td> 
-                    <td><textarea name="description"></textarea></td> 
+                <tr>
+                    <td> <label>Description:</label></td>
+                    <td><textarea name="description" class="w3-input"></textarea></td>
                 </tr>
 
-                <tr> 
-                    <td>Status:</td> 
+                <tr>
+                    <td> <label>Status:</label></td>
                     <td>
-                        <select name="sta">
+                        <select name="sta"  class="form-control">
                             <option value="Available">Available</option>
                             <option value="Not Available">Not Available</option>
                         </select>
                     </td> 
                 </tr>
-                <tr> 
-                    <td>Category ID:</td> 
-                    <td><input type="text" name="catID" value="" /></td> 
+                <tr>
+                    <td> <label>Category ID:</label></td>
+                    <td><input type="text" name="catID" value=""  class="w3-input"/></td>
                 </tr>
                 <tr> 
-                    <td colspan="2" align="center"> 
-                        <input type="submit" value="Submit" /> 
-                        <input type="reset" value="Reset" />
+                    <td colspan="2" align="center">
+                        <input type="submit" value="Submit" class="btn btn-success"/>
+                        <input type="reset" value="Reset" class="btn btn-warning"/>
                     </td> 
                 </tr>
 
             </form>
         </table>
         <br> <br>
-        <a href="BookandUserManagementServlet"> List of products </a>
+        <a href="BookandUserManagementServlet" class="btn btn-primary"> List of books </a>
 
     </body>
 </html>

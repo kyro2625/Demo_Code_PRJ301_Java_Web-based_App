@@ -6,6 +6,18 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Update Page</title>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <style>
+            label {
+                font-weight: bold;
+                color: crimson;
+            }
+        </style>
     </head>
     <body>
         <%
@@ -28,51 +40,51 @@
         <table wwidth="600px" border="1px solid">
 
         </table>
-        <table width="600px" border="0px solid" style="margin-top: 20px">
-            <form action="BookandUserManagementServlet?action=<%=action%>" method="POST" name="f1">
+        <table width="600px" border="0px solid" style="margin-top: 20px" class="">
+            <form action="BookandUserManagementServlet?action=<%=action%>" method="POST" name="f1" >
 
                 <tr>
-                    <td>Book ID:</td>
-                    <td><%=bid%></td>
+                    <td> <label>Book ID:</label></td>
+                    <td  class="w3-input"><%=bid%></td>
                     <td><input type="hidden" name="id" value="<%=bid%>"/></td>
                 </tr>
                 <tr>
-                    <td>Name:</td>
-                    <td><input type="text" name="name" value="<%=name%>" /></td>
+                    <td> <label>Name:</label></td>
+                    <td><input type="text" name="name" value="<%=name%>"  class="w3-input"/></td>
                 </tr>
                 <tr>
-                    <td>Author:</td>
-                    <td><input type="text" name="author" value="<%=auth%>"></td>
+                    <td> <label>Author:</label></td>
+                    <td><input type="text" name="author" value="<%=auth%>" class="w3-input"></td>
                 </tr>
                 <tr>
-                    <td>Publish Year:</td>
-                    <td><input type="text" name="PY" value="<%=py%>"</td>
+                    <td> <label>Publish Year:</label></td>
+                    <td><input type="number" name="PY" value="<%=py%>" class="w3-input"></td>
                 </tr>
                 <tr>
-                    <td>Description:</td>
-                    <td><textarea name="description" ><%=sd%></textarea></td>
+                    <td> <label>Description:</label></td>
+                    <td><textarea name="description"  class="w3-input"><%=sd%></textarea></td>
                 </tr>
 
                 <tr>
-                    <td>Status:</td>
-                    <td><input type="text" name="sta" value="<%=sta%>" /></td>
+                    <td> <label>Status:</label></td>
+                    <td><input type="text" name="sta" value="<%=sta%>"  class="w3-input"/></td>
                 </tr>
                 <tr>
-                    <td>Category ID: </td>
-                    <td><input type="text" name="catID"value="<%=cat%>" /></td>
+                    <td> <label>Category ID:</label></td>
+                    <td><input type="text" name="catID" value="<%=cat%>" class="w3-input"/></td>
                 </tr>
 
                 <tr>
                     <td colspan="2" align="center">
-                        <input type="submit" value="Submit" />
-                        <input type="reset" value="Reset" />
+                        <input type="submit" value="Submit" class="btn btn-success"/>
+                        <input type="reset" value="Reset" class="btn btn-warning"/>
                     </td>
                 </tr>
 
             </form>
         </table>
         <br> <br>
-        <a href="BookandUserManagementServlet"> List of products </a>
+        <a href="BookandUserManagementServlet" class="btn btn-primary"> List of products </a>
 
     </body>
 </html>

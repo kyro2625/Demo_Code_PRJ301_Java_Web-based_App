@@ -1,8 +1,3 @@
-<%-- 
-    Document   : findbook
-    Created on : Feb 17, 2021, 11:20:04 AM
-    Author     : Baby Bear
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
