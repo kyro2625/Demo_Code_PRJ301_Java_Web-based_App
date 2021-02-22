@@ -33,8 +33,40 @@
             ArrayList<Books> ldt = new ArrayList<Books>();//Khời tạo
             String n = (String) request.getAttribute("names");
             ldt = (ArrayList<Books>) request.getAttribute("data");%>
-            <h1 style="text-align: center; font-size: 550%; color: rosybrown">Welcome to my Book Management page</h1>
-            <div class="container" >
+<!--        <div class="container">
+              <script>
+            $(function () {
+                $('#myModal').modal('show');
+            });
+        </script>
+             The Modal 
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                         Modal Header 
+                        <div class="modal-header">
+                            <h3 class="modal-title">Login Successful</h3>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                         Modal body 
+                        <div class="modal-body">
+                            <h5 style="font-weight: bold">Welcome user <%=n%></h5>
+                        </div>
+
+                         Modal footer 
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>    -->
+        <h1 style="text-align: center; font-size: 550%; color: rosybrown">Welcome to <%=n%>'s Book Management page</h1>
+        <div class="container" >
             <br/>
             <div class="row justify-content-center">
                 <div class="col-12 col-md-10 col-lg-8">
@@ -61,19 +93,19 @@
         <table width="900px"  class="table table-striped table-bordered table-hover">
             <thead class="thead-dark">
                 <tr>
-                    <th>Book ID </th> <th>Name </th> <th>Author</th> <th>Publish Year</th> <th>Short Description</th> <th>Status</th> <th>Category Name</th>
+                    <th>Category Name</th> <th>Book ID </th> <th>Name </th> <th>Author</th> <th>Publish Year</th> <th>Short Description</th> <th>Status</th> 
                     <th> </th> <th> </th>
                 </tr>
             </thead>
             <%for (Books dt : ldt) {%>
             <tr>
+                <td><%=dt.getCateID()%></td>
                 <td><%=dt.getBookID()%></td>
                 <td><%=dt.getBookName()%></td>
                 <td><%=dt.getAuthor()%></td>
                 <td><%=dt.getPublishYear()%></td>
                 <td><%=dt.getShortDescription()%></td>
                 <td><%=dt.getStatus()%></td>
-                <td><%=dt.getCateID()%></td>
 
 
                 <td><a href="BookandUserManagementServlet?action=updateform&pid=<%=dt.getBookID()%>" class="btn btn-primary">Edit</a></td>
