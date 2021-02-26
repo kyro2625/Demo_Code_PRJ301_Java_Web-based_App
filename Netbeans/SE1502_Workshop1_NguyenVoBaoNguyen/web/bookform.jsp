@@ -46,7 +46,8 @@
                 </tr>
                 <tr>
                     <td> <label>Publish Year:</label></td>
-                    <td><input type="text" name="PY" value="" class="w3-input"/></td>
+                    <td><input type="year" name="PY" value="" class="w3-input"/></td>
+
                 </tr>
                 <tr>
                     <td> <label>Description:</label></td>
@@ -76,7 +77,23 @@
             </form>
         </table>
         <br> <br>
-        <a href="BookandUserManagementServlet" class="btn btn-primary"> List of books </a>
+        <label >birthday : <span>*</span></label>
+        <SELECT id ="year" name = "yyyy" onchange="change_year(this)">
+        </SELECT>
+        <script>
+            $(document).ready(function () {
+                var d = new Date();
+                var option = '<option value="year">year</option>';
+                selectedYear = "year";
+                for (var i = 1930; i <= d.getFullYear(); i++) {// years start i
+                    option += '<option value="' + i + '">' + i + '</option>';
+                }
+                $('#year').append(option);
+                $('#year').val(selectedYear);
+            });
+        </script>
+    </select>
+    <a href="BookandUserManagementServlet" class="btn btn-primary"> List of books </a>
 
-    </body>
+</body>
 </html>

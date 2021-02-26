@@ -112,13 +112,16 @@
                 <td><a  onclick="return confirmation()" href="BookandUserManagementServlet?action=delete&pid=<%=dt.getBookID()%>" class="btn btn-primary">Delete</a></td>
 
             </tr>
-
+            
 
             <%}%> 
         </table>
+        
         <div class="btn-group-vertical">
             <a href="BookandUserManagementServlet?action=addform" class="btn btn-primary""> Add new book </a> <br>
             <a href="BookandUserManagementServlet?action=addCate" class="btn btn-primary"> Add new Category </a> <br> <br>
+                        <a href="BookandUserManagementServlet?action=viewCate" class="btn btn-primary"> View new Category </a> <br> <br>
+
             <!--<a href="BookandUserManagementServlet?action=find" class="btn btn-info"> Find a book by ID </a>--> 
 
         </div>
