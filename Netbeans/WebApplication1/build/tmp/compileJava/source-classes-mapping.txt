@@ -1,2 +1,0 @@
-abc/NewServlet.java
- abc.NewServlet

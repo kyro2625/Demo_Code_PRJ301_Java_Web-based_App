@@ -102,7 +102,7 @@
                 $('#year').val(selectedYear);
             });
         </script>
-        <a href="BookandUserManagementServlet" class="btn btn-primary"> List of books </a>
+        <a href="BookandUserManagementServlet?action=mainPage" class="btn btn-primary"> List of books </a>
 
     </body>
 </html>

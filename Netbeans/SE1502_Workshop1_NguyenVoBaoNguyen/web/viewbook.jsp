@@ -55,6 +55,6 @@
 
             <%}%>
         </table>
-        <a href="BookandUserManagementServlet" class="btn btn-primary">List of book</a>
+        <a href="BookandUserManagementServlet?action=mainPage" class="btn btn-primary">List of book</a>
     </body>
 </html>
