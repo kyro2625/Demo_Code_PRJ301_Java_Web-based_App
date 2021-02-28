@@ -22,6 +22,7 @@ public class Categories {
     }
 
     public Categories() {
+
     }
 
     public String getCateID() {

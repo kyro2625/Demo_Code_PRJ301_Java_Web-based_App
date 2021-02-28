@@ -8,12 +8,13 @@ package DAO;
 import BookManagement.Books;
 import BookManagement.Categories;
 import UTILS.DBConnect;
+
+import javax.naming.NamingException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.naming.NamingException;
 
 /**
  *

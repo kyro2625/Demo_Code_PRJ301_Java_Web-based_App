@@ -1,7 +1,9 @@
 <%@page import="UserManagement.User"%>
 <%@page import="BookManagement.Books"%>
+<%@page import="BookManagement.Categories"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.util.ArrayList"%> 
+<%@page import="java.util.ArrayList"%>
 
 <!DOCTYPE html>
 <html>
@@ -30,42 +32,15 @@
     </head>
     <body>
         <%
-            ArrayList<Books> ldt = new ArrayList<Books>();//Khời tạo
+            ArrayList<Categories> c = new ArrayList<>();//Khời tạo
+            c = (ArrayList<Categories>) request.getAttribute("data2");
+
+            ArrayList<Books> ldt = new ArrayList<>();//Khời tạo
+
             String n = (String) request.getAttribute("names");
-            ldt = (ArrayList<Books>) request.getAttribute("data");%>
-<!--        <div class="container">
-              <script>
-            $(function () {
-                $('#myModal').modal('show');
-            });
-        </script>
-             The Modal 
-            <div class="modal fade" id="myModal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-
-                         Modal Header 
-                        <div class="modal-header">
-                            <h3 class="modal-title">Login Successful</h3>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-
-                         Modal body 
-                        <div class="modal-body">
-                            <h5 style="font-weight: bold">Welcome user <%=n%></h5>
-                        </div>
-
-                         Modal footer 
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-        </div>    -->
-        <h1 style="text-align: center; font-size: 550%; color: rosybrown">Welcome to <%=n%>'s Book Management page</h1>
+            ldt = (ArrayList<Books>) request.getAttribute("data");
+        %>
+        <h1 style="text-align: center; font-size: 450%; color: rosybrown">Welcome to <%=n%>'s Book Management page</h1>
         <div class="container" >
             <br/>
             <div class="row justify-content-center">
@@ -93,7 +68,7 @@
         <table width="900px"  class="table table-striped table-bordered table-hover">
             <thead class="thead-dark">
                 <tr>
-                    <th>Category Name</th> <th>Book ID </th> <th>Name </th> <th>Author</th> <th>Publish Year</th> <th>Short Description</th> <th>Status</th> 
+                    <th>Category Name</th> <th>Book ID </th> <th>Name </th> <th>Author</th> <th>Publish Year</th> <th>Short Description</th> <th>Status</th>
                     <th> </th> <th> </th>
                 </tr>
             </thead>
@@ -112,18 +87,39 @@
                 <td><a  onclick="return confirmation()" href="BookandUserManagementServlet?action=delete&pid=<%=dt.getBookID()%>" class="btn btn-primary">Delete</a></td>
 
             </tr>
-            
 
-            <%}%> 
+
+            <%}%>
+            <% if (c != null) {%>
         </table>
-        
+        <div class="table-responsive">
+            <table width="900px" class="table table-striped table-bordered table-hover">
+                <thread class="thead-dark">
+                    <tr>
+                        <th>Category ID</th> <th>Category Name </th>
+                    </tr>
+                </thread>
+                <%for (Categories dt : c) {%>
+                <tr>
+                    <td><%=dt.getCateID()%></td>
+                    <td>
+                        <a href="BookandUserManagementServlet?action=search&cid=<%=dt.getCateID()%>&cname=<%=dt.getCateName()%>"><%=dt.getCateName()%></a> <br>  <br>
+                    </td>
+
+                </tr>
+
+                <%}
+                } else {%>
+                <section>
+                    <p>No Categories to print out</p>
+                </section> <%}%>
+                </tr>
+            </table>
+        </div>
+
         <div class="btn-group-vertical">
             <a href="BookandUserManagementServlet?action=addform" class="btn btn-primary""> Add new book </a> <br>
             <a href="BookandUserManagementServlet?action=addCate" class="btn btn-primary"> Add new Category </a> <br> <br>
-                        <a href="BookandUserManagementServlet?action=viewCate" class="btn btn-primary"> View new Category </a> <br> <br>
-
-            <!--<a href="BookandUserManagementServlet?action=find" class="btn btn-info"> Find a book by ID </a>--> 
-
         </div>
 
         <script>

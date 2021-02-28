@@ -20,6 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -45,17 +46,22 @@ public class BookandUserManagementServlet extends HttpServlet {
         String updateView = "updateform.jsp";
         String addCate = "addCate.jsp";
         String welcomePage = "login.html";
+        String names = null;
 
         String controllerServlet = "BookandUserManagementServlet";
 
         try {
             if (action == null) {
-                ArrayList<Books> listBooks = new ArrayList();
+                ArrayList<Books> listBooks = new ArrayList<>();
+                ArrayList<Categories> listCate = new ArrayList<>();
 
                 BookDAO dao = new BookDAO();
                 listBooks = dao.getAllBooks();
+                listCate = dao.getAllCate();
+                request.setAttribute("names", names);
 
                 request.setAttribute("data", listBooks);
+                request.setAttribute("data2", listCate);
                 request.setAttribute("hello", welcome);
                 RequestDispatcher rd = request.getRequestDispatcher(displayView);
                 rd.forward(request, response);
@@ -66,7 +72,7 @@ public class BookandUserManagementServlet extends HttpServlet {
                 BookDAO dao = new BookDAO();
                 listCate = dao.getAllCate();
 
-                request.setAttribute("data", listCate);
+                request.setAttribute("data2", listCate);
                 request.setAttribute("hello", welcome);
                 RequestDispatcher rd = request.getRequestDispatcher("viewCate.jsp");
                 rd.forward(request, response);
@@ -83,17 +89,25 @@ public class BookandUserManagementServlet extends HttpServlet {
                 }
                 if (user1.getAccountName().equals(user.getAccountName()) && user1.getPassword().equalsIgnoreCase(user.getPassword())) {
                     ArrayList<Books> listBooks = new ArrayList();
+                    ArrayList<Categories> listCate = new ArrayList<>();
                     BookDAO book = new BookDAO();
+                    listCate = book.getAllCate();
                     listBooks = book.getAllBooks();
-                    String names = user.getName();
+                    names = user.getName();
                     request.setAttribute("names", names);
-
+                    request.setAttribute("data2", listCate);
                     request.setAttribute("data", listBooks);
                     request.setAttribute("hello", welcome);
                     RequestDispatcher rd = request.getRequestDispatcher(displayView);
                     rd.forward(request, response);
                 }
 
+            } else if (action.equals("logout")) {
+
+                HttpSession session = request.getSession();
+                session.invalidate();
+                RequestDispatcher rd = request.getRequestDispatcher("Login.html");
+                rd.forward(request, response);
             } else if (action.equals("addu")) {
                 User u = new User();
                 request.setAttribute("pObject", u);
@@ -117,7 +131,12 @@ public class BookandUserManagementServlet extends HttpServlet {
                 response.sendRedirect("Login.html");
 
             } else if (action.equals("addform")) { // Hiển thị form để tạo mới sản phẩm
+                ArrayList<Categories> listCate = new ArrayList<>();
+                BookDAO dao = new BookDAO();
+
                 Books p = new Books();//Tạo đ/t product chưa có thong tin
+                listCate = dao.getAllCate();
+                request.setAttribute("data2", listCate);
                 request.setAttribute("pObject", p);
                 request.setAttribute("msg", "Add new Book");
                 request.setAttribute("action", "Create");
@@ -143,7 +162,9 @@ public class BookandUserManagementServlet extends HttpServlet {
 
             } else if (action.equals("Create")) {
                 try {
+
                     BookDAO dao = new BookDAO();
+
                     Books b = dao.getBookById(request.getParameter("id"));
 
                     String id = request.getParameter("id");
@@ -168,8 +189,11 @@ public class BookandUserManagementServlet extends HttpServlet {
 
             } else if (action.equals("updateform")) {
                 String id = request.getParameter("pid");
-
+                ArrayList<Categories> listCate = new ArrayList<>();
                 BookDAO dao = new BookDAO();
+                listCate = dao.getAllCate();
+                request.setAttribute("data2", listCate);
+
                 Books p = dao.getBookById(id);
 
                 request.setAttribute("pObject", p);
@@ -209,14 +233,16 @@ public class BookandUserManagementServlet extends HttpServlet {
                 rd.forward(request, response);
             } else if (action.equals("search")) {
                 try {
-                    String id = request.getParameter("bid");
+                    String id = request.getParameter("cid");
+                    String name = request.getParameter("cname");
                     BookDAO dao = new BookDAO();
-                    Books b = dao.getBookById(id);
+                    ArrayList<Books> b = dao.getBookByCateId(id);
+                    request.setAttribute("cname", name);
                     request.setAttribute("bObject", b);
                     RequestDispatcher rd = request.getRequestDispatcher("viewbook.jsp");
                     rd.forward(request, response);
                 } catch (IOException | SQLException | NamingException | ServletException e) {
-                    response.sendRedirect("BookandUserManagementServlet?action=find");
+                    response.sendRedirect("BookandUserManagementServlet");
                 }
             }
 

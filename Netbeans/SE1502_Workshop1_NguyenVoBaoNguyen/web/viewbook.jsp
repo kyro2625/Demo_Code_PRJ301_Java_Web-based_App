@@ -1,4 +1,5 @@
 <%@page import="BookManagement.Books"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,32 +17,43 @@
 
     </head>
     <body>
-        <% Books b = new Books();
-            b = (Books) request.getAttribute("bObject");
-            String id = b.getBookID();
-            String name = b.getBookName();
-            String au = b.getAuthor();
-            String des = b.getShortDescription();
-            int y = b.getPublishYear();
-            String sta = b.getStatus();
-            String cat = b.getCateID();
+        <%  ArrayList<Books> b = new ArrayList();
+            b = (ArrayList<Books>) request.getAttribute("bObject");
+            String n = (String) request.getAttribute("cname");
 
         %>
+        <h1>Category: <%=n%></h1>
+
         <table width="900px" border="1px solid" class="table table-striped table-bordered table-hover">
             <tr>
-                <th>Book ID </th> <th>Name </th> <th>Author</th> <th>Publish Year</th> <th>Short Description</th> <th>Status</th> <th>Category ID</th>
+                <th>Book ID </th> <th>Name </th> <th>Author</th> <th>Publish Year</th> <th>Short Description</th> <th>Status</th>
+                <th> </th> <th> </th>
 
             </tr>
+            <%if (b.isEmpty() == false) {%>
+            <%for (Books cb : b) {%>
             <tr>
-                <td><%=id%></td>
-                <td><%=name%></td>
-                <td><%=au%></td>
-                <td><%=y%></td>
-                <td><%=des%></td>
-                <td><%=sta%></td>
-                <td><%=cat%></td>
+                <td><%=cb.getBookID()%></td>
+                <td><%=cb.getBookName()%></td>
+                <td><%=cb.getAuthor()%></td>
+                <td><%=cb.getPublishYear()%></td>
+                <td><%=cb.getShortDescription()%></td>
+                <td><%=cb.getStatus()%></td>
+                <td><a href="BookandUserManagementServlet?action=updateform&pid=<%=cb.getBookID()%>" class="btn btn-primary">Edit</a></td>
+                <td><a  onclick="return confirmation()" href="BookandUserManagementServlet?action=delete&pid=<%=cb.getBookID()%>" class="btn btn-primary">Delete</a></td>
 
             </tr>
+            <%}%>
+            <%}%>
+            <%if (b.isEmpty() == true) {%>
+            <td>No information</td>
+            <td>No information</td>
+            <td>No information</td>
+            <td>No information</td>
+            <td>No information</td>
+            <td>No information</td>
+
+            <%}%>
         </table>
         <a href="BookandUserManagementServlet" class="btn btn-primary">List of book</a>
     </body>

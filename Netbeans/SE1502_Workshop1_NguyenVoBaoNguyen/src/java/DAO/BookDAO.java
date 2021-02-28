@@ -90,6 +90,47 @@ public class BookDAO {
         return lst;
     }
 
+    public ArrayList<Books> getBookByCateId(String cid) throws NamingException, SQLException {
+        Connection con = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        String sql = "SELECT b.* FROM Books b, Categories c WHERE c.CategoryID=? AND c.CategoryID=b.CategoryID";
+        ArrayList<Books> lst = new ArrayList<>();
+        try {
+            con = DBConnect.makeConnection();
+            if (con != null) {
+                pstm = con.prepareStatement(sql);
+                pstm.setString(1, cid);
+                rs = pstm.executeQuery();
+
+                while (rs.next()) {
+                    String id = rs.getString("BookID");
+                    String name = rs.getString("Name");
+                    String author = rs.getString("Author");
+                    int publishYear = rs.getInt("PublishYear");
+                    String ShortDes = rs.getString("ShortDescription");
+                    String Sta = rs.getString("Status");
+                    String cate = rs.getString("CategoryID");
+
+                    Books p = new Books(id, name, author, publishYear, ShortDes, Sta, cate); //DTO
+                    lst.add(p);
+
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (pstm != null) {
+                pstm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return lst;
+    }
+
     public ArrayList<Books> getAllBooks() throws NamingException, SQLException {
         Connection con = null;
         PreparedStatement pstm = null;

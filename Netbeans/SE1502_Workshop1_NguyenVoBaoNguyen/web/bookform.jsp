@@ -1,7 +1,8 @@
 <%@page import="BookManagement.Books"%>
-
+<%@page import="BookManagement.Categories"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%-- --%> 
+<%-- --%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,6 +23,9 @@
     </head>
     <body>
         <%
+            ArrayList<Categories> c = new ArrayList<>();//Khời tạo
+            c = (ArrayList<Categories>) request.getAttribute("data2");
+
             Books p = (Books) request.getAttribute("pObject");
             String headerMsg = (String) request.getAttribute("msg");
             String action = (String) request.getAttribute("action");
@@ -32,11 +36,11 @@
         <table width="600px" border="0px solid">
             <form action="BookandUserManagementServlet?action=<%=action%>" method="POST" name="f1">
                 <input type="hidden" name ="action" value="">
-                <tr> 
+                <tr>
                     <td><label>Book ID:</label></td>
                     <td><input type="text" name="id" value="" class="w3-input" required/></td>
                 </tr>
-                <tr> 
+                <tr>
                     <td><label>Name:</label></td>
                     <td><input type="text" name="name" value="" class="w3-input" required/></td>
                 </tr>
@@ -46,7 +50,10 @@
                 </tr>
                 <tr>
                     <td> <label>Publish Year:</label></td>
-                    <td><input type="year" name="PY" value="" class="w3-input"/></td>
+                    <td>
+                        <SELECT id ="year" name = "PY" class="w3-input" onchange="change_year(this)">
+                        </SELECT>
+                    </td>
 
                 </tr>
                 <tr>
@@ -58,33 +65,36 @@
                     <td> <label>Status:</label></td>
                     <td>
                         <select name="sta"  class="form-control">
+                            <option value="">Choose Status</option>
                             <option value="Available">Available</option>
                             <option value="Not Available">Not Available</option>
                         </select>
-                    </td> 
+                    </td>
                 </tr>
                 <tr>
                     <td> <label>Category ID:</label></td>
-                    <td><input type="text" name="catID" value=""  class="w3-input"/></td>
+                    <td> <select name="catID" class="w3-input" selected="0">
+                            <option value="" disabled selected>Choose Category ID</option>
+                            <%for (Categories dt : c) {%>
+                            <option value="<%=dt.getCateID()%>"><%=dt.getCateID()%>: <%=dt.getCateName()%></option>
+                            <%}%>
+                        </select></td>
                 </tr>
-                <tr> 
+                <tr>
                     <td colspan="2" align="center">
                         <input type="submit" value="Submit" class="btn btn-success"/>
                         <input type="reset" value="Reset" class="btn btn-warning"/>
-                    </td> 
+                    </td>
                 </tr>
 
             </form>
         </table>
         <br> <br>
-        <label >birthday : <span>*</span></label>
-        <SELECT id ="year" name = "yyyy" onchange="change_year(this)">
-        </SELECT>
         <script>
             $(document).ready(function () {
                 var d = new Date();
-                var option = '<option value="year">year</option>';
-                selectedYear = "year";
+                var option = '<option value="0" disabled>Choose a year</option>';
+                selectedYear = "Choose year";
                 for (var i = 1930; i <= d.getFullYear(); i++) {// years start i
                     option += '<option value="' + i + '">' + i + '</option>';
                 }
@@ -92,8 +102,7 @@
                 $('#year').val(selectedYear);
             });
         </script>
-    </select>
-    <a href="BookandUserManagementServlet" class="btn btn-primary"> List of books </a>
+        <a href="BookandUserManagementServlet" class="btn btn-primary"> List of books </a>
 
-</body>
+    </body>
 </html>
