@@ -56,5 +56,11 @@
             <%}%>
         </table>
         <a href="BookandUserManagementServlet?action=mainPage" class="btn btn-primary">List of book</a>
+        <script>
+            function confirmation() {
+                var r = confirm("Are you sure you want to delete this?");
+                return r;
+            }
+        </script>
     </body>
 </html>
