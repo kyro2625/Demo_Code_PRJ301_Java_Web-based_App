@@ -12,7 +12,7 @@
     <servlet>
         <servlet-name>BookandUserManagementServlet</servlet-name>
         <servlet-class>Controller.BookandUserManagementServlet</servlet-class>
-       
+
     </servlet>
     <servlet-mapping>
         <servlet-name>BookandUserManagementServlet</servlet-name>
@@ -20,7 +20,7 @@
     </servlet-mapping>
     <session-config>
         <session-timeout>
-            180
+            30
         </session-timeout>
     </session-config>
 </web-app>

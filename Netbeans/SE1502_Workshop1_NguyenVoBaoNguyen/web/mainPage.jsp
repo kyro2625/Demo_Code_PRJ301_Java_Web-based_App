@@ -37,7 +37,7 @@
 
         </script>
     </head>
-    <body onLoad="LoadOnce()" >
+    <body onloadedmetadata="LoadOnce()" >
         <%
             ArrayList<Categories> c = new ArrayList<>();//Khời tạo
             c = (ArrayList<Categories>) request.getAttribute("data2");
