@@ -66,7 +66,7 @@ public class BookandUserManagementServlet extends HttpServlet {
                     if (user1.getAccountName().equals(user.getAccountName()) && user1.getPassword().equalsIgnoreCase(user.getPassword())) {
                         HttpSession session = request.getSession();
                         names = user.getName();
-                        request.setAttribute("names", names);
+                        session.setAttribute("names", names);
                         RequestDispatcher rd = request.getRequestDispatcher("welcomePage.jsp");
                         rd.forward(request, response);
 
@@ -92,7 +92,8 @@ public class BookandUserManagementServlet extends HttpServlet {
                     }
 
                 } else if (action.equals("logout")) {
-                    HttpSession session = request.getSession();
+                    HttpSession session = request.getSession(false);
+                   
                     session.invalidate();
                     RequestDispatcher rd = request.getRequestDispatcher("Login.html");
                     rd.forward(request, response);
@@ -139,7 +140,7 @@ public class BookandUserManagementServlet extends HttpServlet {
                         rd.forward(request, response);
                     }
 
-                }else if (action.equals("Create")) {
+                } else if (action.equals("Create")) {
                     HttpSession session = request.getSession(false);
                     if (session != null) {
 
