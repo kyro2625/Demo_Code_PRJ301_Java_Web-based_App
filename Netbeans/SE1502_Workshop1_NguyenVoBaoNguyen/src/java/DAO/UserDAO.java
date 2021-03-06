@@ -50,13 +50,13 @@ public class UserDAO {
         return false;
     }
 
-    public User getUser(String pass) throws NamingException, SQLException {
+    public User getUser(String pass) throws NamingException, SQLException, Exception {
         Connection con = null;
         PreparedStatement pstm = null;
         ResultSet rs = null;
         String sql = "SELECT Username,Password,Names,Email FROM Users WHERE Password=?";
         try {
-            con = DBConnect.makeConnection();
+            con = DBConnect.getConnection();
             if (con != null) {
                 pstm = con.prepareStatement(sql);
                 pstm.setString(1, pass);

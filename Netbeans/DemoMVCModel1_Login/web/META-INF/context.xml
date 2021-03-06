@@ -2,9 +2,9 @@
 <Context path="/DemoMVCModel1_Login" >
     <Resource
         name="DBConnection" auth="Container"
-        type="javax.sql.DataSource" 
+        type="javax.sql.DataSource"
         username="sa"
-        password="1234567890"
+        password="123456789"
         driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
         url="jdbc:sqlserver://localhost:1433;databaseName=DataManagement">
     </Resource>

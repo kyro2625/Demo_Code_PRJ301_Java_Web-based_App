@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -38,7 +40,7 @@ public class BookandUserManagementServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, Exception {
         try (PrintWriter out = response.getWriter()) {
 
             String action = request.getParameter("action");
@@ -93,7 +95,7 @@ public class BookandUserManagementServlet extends HttpServlet {
 
                 } else if (action.equals("logout")) {
                     HttpSession session = request.getSession(false);
-                   
+
                     session.invalidate();
                     RequestDispatcher rd = request.getRequestDispatcher("Login.html");
                     rd.forward(request, response);
@@ -256,13 +258,21 @@ public class BookandUserManagementServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(BookandUserManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(BookandUserManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
