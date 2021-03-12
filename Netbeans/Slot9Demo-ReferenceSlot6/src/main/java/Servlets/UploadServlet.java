@@ -61,7 +61,7 @@ public class UploadServlet extends HttpServlet {
             Part filePart = request.getPart("photo");
             fileName = (String) getFileName(filePart);
 
-            String applicationPath = request.getServletContext().getRealPath("");
+            String applicationPath = request.getServletContext().getRealPath("/web/images/");
             String basePath = applicationPath + File.separator + UPLOAD_DIR + File.separator;
             InputStream inputStream = null;
             OutputStream outputStream = null;
