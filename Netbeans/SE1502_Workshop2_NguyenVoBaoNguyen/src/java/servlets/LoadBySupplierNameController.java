@@ -29,9 +29,7 @@ public class LoadBySupplierNameController extends HttpServlet {
             String id = request.getParameter("id");
             LaptopDAO dao = new LaptopDAO();
             List<LaptopDTO> listLaptop = dao.getLaptopBySupplierID(id);
-           
             request.setAttribute("listLaptops", listLaptop);
-            System.out.println(dao.getLaptopBySupplierID(id));
             SuppliersDAO supplier = new SuppliersDAO();
             SuppliersDTO data = supplier.getSuppliersByID(id);
             request.setAttribute("Supplier", data.getName());

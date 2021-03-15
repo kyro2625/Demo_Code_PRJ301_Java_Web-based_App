@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : error
     Created on : Mar 13, 2021, 11:04:43 PM
     Author     : nguye
@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Error Page</title>
     </head>
     <body>
         <h2> ${requestScope.ERROR}</h2>
