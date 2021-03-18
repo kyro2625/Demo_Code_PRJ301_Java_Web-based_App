@@ -34,7 +34,7 @@ public class CheckOutController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = null;
         try {
-
+            boolean e;
             HttpSession session = request.getSession();
             CheckOutDAO checkout = new CheckOutDAO();
             UserLoginDTO user = (UserLoginDTO) session.getAttribute("USER");
