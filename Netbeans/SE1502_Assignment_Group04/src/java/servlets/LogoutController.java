@@ -41,7 +41,7 @@ public class LogoutController extends HttpServlet {
         } catch (Exception e) {
             log("ERROR at LogoutController: " + e.getMessage());
         } finally {
-            request.getRequestDispatcher("userLoginPage.jsp").forward(request, response);
+            request.getRequestDispatcher("login.jsp").forward(request, response);
 
         }
     }

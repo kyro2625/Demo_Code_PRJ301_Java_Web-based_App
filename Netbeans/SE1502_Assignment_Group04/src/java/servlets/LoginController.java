@@ -5,9 +5,12 @@
  */
 package servlets;
 
+import daos.UserLoginDAO;
+import dtos.UserLoginDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,31 +21,39 @@ import javax.servlet.http.HttpSession;
  *
  * @author nguye
  */
-public class LogoutController extends HttpServlet {
+public class LoginController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    private static final String SUCCESS_ADMIN = "MainAdminPageController";
+    private static final String SUCCESS_USER = "MainUserPageController";
+
+    private static final String ERROR = "login.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
+        String url = ERROR;
         try {
-            HttpSession session = request.getSession(false);
-            if (session != null) {
-                session.removeAttribute("USER");
-                session.invalidate();
+            String username = request.getParameter("txtUsername");
+            String password = request.getParameter("txtPassword");
+            UserLoginDAO dao = new UserLoginDAO();
+            UserLoginDTO user = dao.checkLogin(username, password);
+            if (user != null && user.getRole().equalsIgnoreCase("admin")) {
+                url = SUCCESS_ADMIN;
+                HttpSession session = request.getSession();
+                session.setAttribute("USER", user);
+                session.setAttribute("Welcome", user.getFullname());
+            } else if (user != null && user.getRole().equalsIgnoreCase("user")) {
+                url = SUCCESS_USER;
+                HttpSession session = request.getSession();
+                session.setAttribute("USER", user);
+                session.setAttribute("Welcome", user.getFullname());
+            } else {
+                request.setAttribute("ERROR", "Invalid username and password");
             }
         } catch (Exception e) {
-            log("ERROR at LogoutController: " + e.getMessage());
+            log("ERROR at LoginController: " + e.getMessage());
         } finally {
-            request.getRequestDispatcher("userLoginPage.jsp").forward(request, response);
-
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 
@@ -58,7 +69,11 @@ public class LogoutController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -72,7 +87,11 @@ public class LogoutController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

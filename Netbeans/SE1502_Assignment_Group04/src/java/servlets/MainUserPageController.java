@@ -5,20 +5,23 @@
  */
 package servlets;
 
+import daos.CategoryDAO;
+import daos.ProductDAO;
+import dtos.CategoryDTO;
+import dtos.ProductDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author nguye
  */
-public class LogoutController extends HttpServlet {
+public class MainUserPageController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,16 +36,16 @@ public class LogoutController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            HttpSession session = request.getSession(false);
-            if (session != null) {
-                session.removeAttribute("USER");
-                session.invalidate();
-            }
+            CategoryDAO dao1 = new CategoryDAO();
+            List<CategoryDTO> listCategories = dao1.getAllCategories();
+            request.setAttribute("listCategories", listCategories);
+            ProductDAO dao = new ProductDAO();
+            List<ProductDTO> listProduct = dao.getAllProduct();
+            request.setAttribute("listProducts", listProduct);
         } catch (Exception e) {
-            log("ERROR at LogoutController: " + e.getMessage());
+            log("ERROR at MainAdminPageController: " + e.getMessage());
         } finally {
-            request.getRequestDispatcher("userLoginPage.jsp").forward(request, response);
-
+            request.getRequestDispatcher("usermainpage.jsp").forward(request, response);
         }
     }
 

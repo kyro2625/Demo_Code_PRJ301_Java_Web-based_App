@@ -5,9 +5,14 @@
  */
 package servlets;
 
+import daos.CheckOutDAO;
+import dtos.CartItem;
+import dtos.OrderDTO;
+import dtos.UserLoginDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,30 +23,38 @@ import javax.servlet.http.HttpSession;
  *
  * @author nguye
  */
-public class LogoutController extends HttpServlet {
+public class CheckOutController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    private static final String SUCCESS = "MainUserPageController";
+    private static final String ERROR = "error.jsp";
+    private static final String INVALID = "AddNewCategoryController";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
+        String url = null;
         try {
-            HttpSession session = request.getSession(false);
-            if (session != null) {
-                session.removeAttribute("USER");
-                session.invalidate();
+
+            HttpSession session = request.getSession();
+            CheckOutDAO checkout = new CheckOutDAO();
+            UserLoginDTO user = (UserLoginDTO) session.getAttribute("USER");
+
+            if (checkout.createOrder(user)) {
+                OrderDTO order = checkout.getCurrentOrderByUserID(user.getUserID());
+                List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+                if (cart != null) {
+                    for (CartItem c : cart) {
+                        checkout.insertOrderDetail(c, order.getId());
+                    }
+                }
+                url = SUCCESS;
+                request.setAttribute("PaySuccess", "Your cart is successfully check out");
             }
         } catch (Exception e) {
-            log("ERROR at LogoutController: " + e.getMessage());
+            log("ERROR at CheckOutController: " + e.getMessage());
+            e.printStackTrace();
         } finally {
-            request.getRequestDispatcher("userLoginPage.jsp").forward(request, response);
+            request.getRequestDispatcher("MainUserPageController").forward(request, response);
 
         }
     }
@@ -58,7 +71,11 @@ public class LogoutController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(CheckOutController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -72,7 +89,11 @@ public class LogoutController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(CheckOutController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

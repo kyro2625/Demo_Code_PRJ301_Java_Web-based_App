@@ -5,8 +5,19 @@
  */
 package servlets;
 
+import daos.CategoryDAO;
+import daos.ProductDAO;
+import daos.UserLoginDAO;
+import dtos.CategoryDTO;
+import dtos.ProductDTO;
+import dtos.UserLoginDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +29,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author nguye
  */
-public class LogoutController extends HttpServlet {
+public class AddNewUserController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,19 +41,17 @@ public class LogoutController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            HttpSession session = request.getSession(false);
-            if (session != null) {
-                session.removeAttribute("USER");
-                session.invalidate();
-            }
-        } catch (Exception e) {
-            log("ERROR at LogoutController: " + e.getMessage());
-        } finally {
-            request.getRequestDispatcher("userLoginPage.jsp").forward(request, response);
+            UserLoginDAO userdao = new UserLoginDAO();
+            List<UserLoginDTO> listUser = userdao.getAllAccount();
+            request.setAttribute("listUsers", listUser);
 
+        } catch (Exception e) {
+            log("ERROR at AddNewProductController: " + e.getMessage());
+        } finally {
+            request.getRequestDispatcher("adduserform.jsp").forward(request, response);
         }
     }
 
@@ -58,7 +67,11 @@ public class LogoutController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(AddNewUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -72,7 +85,11 @@ public class LogoutController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(AddNewUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

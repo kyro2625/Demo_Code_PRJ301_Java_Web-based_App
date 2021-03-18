@@ -5,44 +5,39 @@
  */
 package servlets;
 
+import daos.ProductDAO;
+import daos.CategoryDAO;
+import dtos.ProductDTO;
+import dtos.CategoryDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author nguye
  */
-public class LogoutController extends HttpServlet {
+public class LoadProductByCategoryController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            HttpSession session = request.getSession(false);
-            if (session != null) {
-                session.removeAttribute("USER");
-                session.invalidate();
-            }
-        } catch (Exception e) {
-            log("ERROR at LogoutController: " + e.getMessage());
-        } finally {
-            request.getRequestDispatcher("userLoginPage.jsp").forward(request, response);
+            String id = request.getParameter("id");
+            ProductDAO dao = new ProductDAO();
+            List<ProductDTO> listProduct = dao.getProductByCategoryID(id);
+            request.setAttribute("listProducts", listProduct);
+            CategoryDAO category = new CategoryDAO();
+            CategoryDTO data = category.getCategoryByID(id);
+            request.setAttribute("Category", data.getName());
 
+        } catch (Exception e) {
+            log("ERROR at LoadByID: " + e.getMessage());
+        } finally {
+            request.getRequestDispatcher("listproductbycategory.jsp").forward(request, response);
         }
     }
 

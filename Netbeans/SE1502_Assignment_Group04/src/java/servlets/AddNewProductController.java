@@ -5,20 +5,22 @@
  */
 package servlets;
 
+import daos.ProductDAO;
+import daos.CategoryDAO;
+import dtos.ProductDTO;
+import dtos.CategoryDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author nguye
  */
-public class LogoutController extends HttpServlet {
+public class AddNewProductController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,20 +35,21 @@ public class LogoutController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            HttpSession session = request.getSession(false);
-            if (session != null) {
-                session.removeAttribute("USER");
-                session.invalidate();
-            }
-        } catch (Exception e) {
-            log("ERROR at LogoutController: " + e.getMessage());
-        } finally {
-            request.getRequestDispatcher("userLoginPage.jsp").forward(request, response);
+            ProductDAO dao = new ProductDAO();
+            List<ProductDTO> listProduct = dao.getAllProduct();
+            CategoryDAO cate = new CategoryDAO();
+            List<CategoryDTO> listCategories = cate.getAllCategories();
+            request.setAttribute("listProduct", listProduct);
+            request.setAttribute("listCategories", listCategories);
 
+        } catch (Exception e) {
+            log("ERROR at AddNewProductController: " + e.getMessage());
+        } finally {
+            request.getRequestDispatcher("addproductform.jsp").forward(request, response);
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
