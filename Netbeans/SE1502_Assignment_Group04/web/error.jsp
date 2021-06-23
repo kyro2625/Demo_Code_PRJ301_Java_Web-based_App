@@ -12,6 +12,7 @@
         <title>Error Page</title>
     </head>
     <body>
+        
         <h2> ${requestScope.ERROR}</h2>
         <button onclick="goBack()">Go back to previous page</button>
 

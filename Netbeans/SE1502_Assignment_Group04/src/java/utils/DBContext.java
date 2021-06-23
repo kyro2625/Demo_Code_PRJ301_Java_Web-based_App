@@ -21,7 +21,7 @@ public class DBContext {
 }
     
     private final String servername = "localhost";
-    private final String dbname = "SE1502_Assignment_Group04_test3";
+    private final String dbname = "SE1502_Assignment_Group04";
     private final String portNumber = "1433";
     private final String userID = "sa";
     private final String password = "123456789";
